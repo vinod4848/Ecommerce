@@ -27,10 +27,10 @@ for (let i = 0; i < 46; i++) {
     status: `London, Park Lane no. ${i}`,
   });
 }
-const BlogList = () => {
+const Customers = () => {
   return (
     <div>
-      <h3 className="mb-4 title">Blogs List</h3>
+      <h3 className="mb-4 title">Customers</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -38,4 +38,4 @@ const BlogList = () => {
   );
 };
 
-export default BlogList;
+export default Customers;
