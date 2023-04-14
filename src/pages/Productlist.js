@@ -1,5 +1,7 @@
 import React from "react";
 import { Table } from "antd";
+import { BiEdit } from "react-icons/bi";
+import { MdDeleteOutline } from "react-icons/md";
 const columns = [
   {
     title: "SNo",
@@ -27,10 +29,10 @@ for (let i = 0; i < 46; i++) {
     status: `London, Park Lane no. ${i}`,
   });
 }
-const BlogList = () => {
+const Productlist = () => {
   return (
     <div>
-      <h3 className="mb-4 title">Blogs List</h3>
+      <h3 className="mb-4 title">Products</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -38,4 +40,4 @@ const BlogList = () => {
   );
 };
 
-export default BlogList;
+export default Productlist;
