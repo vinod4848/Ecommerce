@@ -1,7 +1,5 @@
 import React from "react";
 import { Table } from "antd";
-import { BiEdit } from "react-icons/bi";
-import { MdDeleteOutline } from "react-icons/md";
 const columns = [
   {
     title: "SNo",
