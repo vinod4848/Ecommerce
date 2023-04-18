@@ -5,7 +5,7 @@ import { Column } from "@ant-design/plots";
 const Dashboard = () => {
   const columns = [
     {
-      title: "SNo",
+      title: "SN",
       dataIndex: "key",
     },
     {

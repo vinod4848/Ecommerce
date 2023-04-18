@@ -5,7 +5,7 @@ import {
   AiOutlineUser,
   AiOutlineBgColors,
 } from "react-icons/ai";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { IoMdNotifications } from "react-icons/io";
 import { SiBrandfolder } from "react-icons/si";
 import { ImBlog } from "react-icons/im";
@@ -52,7 +52,7 @@ const MainLayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key ==="singnout") {
+            if (key === "singnout") {
             } else {
               navigate(key);
             }
@@ -188,9 +188,15 @@ const MainLayout = () => {
                   alt=""
                 />
               </div>
-              <div>
+              <div role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 <h5 className="mb-0">Abhi</h5>
                 <p className="mb-0">abhi@gmail.com</p>
+              </div>
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li ><Link className="dropdown-item py-1 mb-1" style={{ height: "auto", lineHeight: "20px;" }}
+                  to="/">Profile</Link></li>
+                <li ><Link className="dropdown-item py-1 mb-1" style={{ height: "auto", lineHeight: "20px;" }}
+                  to="/">Logout</Link></li>
               </div>
             </div>
           </div>
