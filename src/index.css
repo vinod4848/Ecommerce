@@ -73,3 +73,8 @@ main::-webkit-scrollbar {
   margin-left: -10px;
   top: -6px;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+}
