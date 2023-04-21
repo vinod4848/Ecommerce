@@ -1,5 +1,11 @@
-import React from "react";
 import { Table } from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getBrands } from "../features/brand/brandSlice";
+import { Link } from "react-router-dom";
+import { MdModeEditOutline } from "react-icons/md"
+import { MdOutlineDelete } from "react-icons/md"
+
 const columns = [
   {
     title: "SN",
@@ -7,27 +13,41 @@ const columns = [
   },
   {
     title: "Name",
-    dataIndex: "name",
+    dataIndex: "title",
   },
   {
-    title: "Product",
-    dataIndex: "product",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
+    title: "Action",
+    dataIndex: "action",
   },
 ];
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    name: `Edward King ${i}`,
-    product: 32,
-    status: `London, Park Lane no. ${i}`,
-  });
-}
 const Brandlist = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBrands());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const brandState = useSelector((state) => state.brand.brands);
+  console.log(brandState);
+  const data1 = [];
+  for (let i = 0; i < brandState.length; i++) {
+    data1.push({
+      key: i,
+      title: brandState[i].title,
+      action: (
+        <>
+          <Link to="/" className="fs-3 text-danger">
+            <MdModeEditOutline />
+          </Link>
+          <Link to="/" className="ms-2 fs-3 text-danger">
+            <MdOutlineDelete />
+          </Link>
+        </>
+
+      )
+
+    });
+  }
+  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Brands</h3>

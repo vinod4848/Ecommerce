@@ -1,5 +1,10 @@
-import React from "react";
 import { Table } from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getblogs } from "../features/blog/blogSlice";
+import { Link } from "react-router-dom";
+import { MdModeEditOutline } from "react-icons/md"
+import { MdOutlineDelete } from "react-icons/md"
 const columns = [
   {
     title: "SN",
@@ -7,30 +12,72 @@ const columns = [
   },
   {
     title: "Name",
-    dataIndex: "name",
+    dataIndex: "title",
   },
   {
-    title: "Product",
-    dataIndex: "product",
+    title: "Description",
+    dataIndex: "description",
   },
   {
-    title: "Status",
-    dataIndex: "status",
+    title: "Category",
+    dataIndex: "category",
+  },
+  {
+    title: "Views",
+    dataIndex: "numViews",
+  },
+  {
+    title: "Likes",
+    dataIndex: "likes",
+  },
+  {
+    title: "Dislikes",
+    dataIndex: "disliked",
+  },
+  {
+    title: "Actions",
+    dataIndex: "action",
   },
 ];
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    name: `Edward King ${i}`,
-    product: 32,
-    status: `London, Park Lane no. ${i}`,
-  });
-}
-const BlogList = () => {
+
+const Brandlist = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getblogs());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const blogState = useSelector((state) => state.blog.blogs);
+  console.log(blogState);
+  const data1 = [];
+  for (let i = 0; i < blogState.length; i++) {
+    data1.push({
+      key: i,
+      title: blogState[i].title,
+      description: blogState[i].description,
+      category: blogState[i].category,
+      numViews: blogState[i].numViews,
+      isLiked: blogState[i].isLiked,
+      isDisliked: blogState[i].isDisliked,
+      likes: blogState[i]?.likes?.length ? blogState[i]?.likes[0]?.firstName + " " + blogState[i]?.likes[0].lastName : "",
+      disliked: blogState[i]?.disliked?.length ? blogState[i]?.disliked[0]?.firstName + " " + blogState[i]?.disliked[0].lastName : "",
+      action: (
+        <>
+          <Link to="/" className="fs-3 text-danger">
+            <MdModeEditOutline />
+          </Link>
+          <Link to="/" className="ms-2 fs-3 text-danger">
+            <MdOutlineDelete />
+          </Link>
+        </>
+
+      )
+
+    });
+  }
+  console.log(data1);
   return (
     <div>
-      <h3 className="mb-4 title">Blogs List</h3>
+      <h3 className="mb-4 title">Blogs</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -38,4 +85,4 @@ const BlogList = () => {
   );
 };
 
-export default BlogList;
+export default Brandlist;

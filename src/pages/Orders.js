@@ -1,5 +1,11 @@
-import React from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
 import { Table } from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrders } from "../features/auth/authSlice";
+import { Link } from "react-router-dom";
+import { MdModeEditOutline } from "react-icons/md"
+import { MdOutlineDelete } from "react-icons/md"
 const columns = [
   {
     title: "SN",
@@ -14,28 +20,63 @@ const columns = [
     dataIndex: "product",
   },
   {
-    title: "Status",
-    dataIndex: "status",
+    title: "Amount",
+    dataIndex: "amount",
+  },
+  {
+    title: "Date",
+    dataIndex: "date",
+  },
+
+  {
+    title: "Action",
+    dataIndex: "action",
   },
 ];
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    name: `Edward King ${i}`,
-    product: 32,
-    status: `London, Park Lane no. ${i}`,
-  });
-}
-const Orders = () => {
+
+const orderlist = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOrders());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const orderState = useSelector((state) => state.auth.orders);
+  console.log(orderState, "order");
+  const data1 = [];
+  for (let i = 0; i < orderState.length; i++) {
+    data1.push({
+      key: i,
+      name: orderState[i].orderby.firstName,
+      product: orderState[i].products.map((i, j) => {
+        return (
+          <p key={j}>{i.product.title}</p>
+        )
+      }),
+      amount: orderState[i].paymentintent.amount,
+      date: new Date(orderState[i].createdAt).toLocaleString(),
+      action: (
+        <>
+          <Link to="/" className="fs-3 text-danger">
+            <MdModeEditOutline />
+          </Link>
+          <Link to="/" className="ms-2 fs-3 text-danger">
+            <MdOutlineDelete />
+          </Link>
+        </>
+
+      )
+
+    });
+  }
+  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Orders</h3>
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <Table style={{ width: "100%" }} columns={columns} dataSource={data1} />
       </div>
     </div>
   );
 };
 
-export default Orders;
+export default orderlist;
