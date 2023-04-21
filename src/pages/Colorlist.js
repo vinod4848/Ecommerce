@@ -28,7 +28,6 @@ const colorList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const colorState = useSelector((state) => state.color.colors);
-  console.log(colorState);
   const data1 = [];
   for (let i = 0; i < colorState.length; i++) {
     data1.push({
@@ -48,7 +47,6 @@ const colorList = () => {
 
     });
   }
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Colors</h3>

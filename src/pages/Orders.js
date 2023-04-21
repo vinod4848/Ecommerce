@@ -41,7 +41,6 @@ const orderlist = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const orderState = useSelector((state) => state.auth.orders);
-  console.log(orderState, "order");
   const data1 = [];
   for (let i = 0; i < orderState.length; i++) {
     data1.push({
@@ -68,7 +67,6 @@ const orderlist = () => {
 
     });
   }
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Orders</h3>

@@ -42,7 +42,6 @@ const Brandlist = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const enquirieState = useSelector((state) => state.enquirie.enquiries);
-  console.log(enquirieState);
   const data1 = [];
   for (let i = 0; i < enquirieState.length; i++) {
     data1.push({
@@ -68,7 +67,6 @@ const Brandlist = () => {
 
     });
   }
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Enquiries</h3>

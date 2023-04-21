@@ -28,7 +28,6 @@ const Brandlist = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const blogCatState = useSelector((state) => state.blogCat.blogCats);
-  console.log(blogCatState);
   const data1 = [];
   for (let i = 0; i < blogCatState.length; i++) {
     data1.push({
@@ -48,7 +47,6 @@ const Brandlist = () => {
 
     });
   }
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Blog Category List</h3>

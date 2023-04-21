@@ -27,7 +27,6 @@ const Brandlist = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const brandState = useSelector((state) => state.brand.brands);
-  console.log(brandState);
   const data1 = [];
   for (let i = 0; i < brandState.length; i++) {
     data1.push({
@@ -47,7 +46,6 @@ const Brandlist = () => {
 
     });
   }
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Brands</h3>
