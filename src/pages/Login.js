@@ -24,17 +24,18 @@ const Login = () => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  const { user, isLoding, isError, isSuccess, Maseage } = useSelector(
-    (state) => state.auth
-  );
+  const authState = useSelector((state) => state);
+  const { user, isLoding, isError, isSuccess, isMessage } = authState.auth;
+
   useEffect(() => {
-    if (!user == null || isSuccess) {
+    if (isSuccess) {
       navigate("admin")
     } else {
-      alert("not ")
+      navigate("");
     }
-//  sum problems
-  }, [user, isLoding, isError, isSuccess, Maseage])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, isLoding, isError, isSuccess])
 
   return (
     <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
@@ -46,6 +47,9 @@ const Login = () => {
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
         <h3 className="text-center">Login</h3>
         <p className="text-center ">Log in to your account</p>
+        <div className=" error text-center">
+          {isMessage.message === "Rejected" ? " You are not admin" : ""}
+        </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
@@ -92,5 +96,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;
