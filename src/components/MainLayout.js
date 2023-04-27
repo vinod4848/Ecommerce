@@ -15,6 +15,8 @@ import { FaBlogger } from "react-icons/fa";
 import { Layout, Menu, theme } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -188,15 +190,34 @@ const MainLayout = () => {
                   alt=""
                 />
               </div>
-              <div role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <div
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 <h5 className="mb-0">Abhi</h5>
                 <p className="mb-0">abhi@gmail.com</p>
               </div>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li ><Link className="dropdown-item py-1 mb-1" style={{ height: "auto", lineHeight: "20px" }}
-                  to="/">Profile</Link></li>
-                <li ><Link className="dropdown-item py-1 mb-1" style={{ height: "auto", lineHeight: "20px" }}
-                  to="/">Logout</Link></li>
+                <li>
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "20px" }}
+                    to="/"
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "20px" }}
+                    to="/"
+                  >
+                    Logout
+                  </Link>
+                </li>
               </div>
             </div>
           </div>
@@ -209,6 +230,17 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
+          <ToastContainer
+            position="top-right"
+            autoClose={250}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="light"
+          />
           <Outlet />
         </Content>
       </Layout>

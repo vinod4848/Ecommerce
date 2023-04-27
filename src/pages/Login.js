@@ -8,6 +8,7 @@ import { login } from "../features/auth/authSlice";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   let userSchema = Yup.object().shape({
     email: Yup.string().email("Email Should  be vailid")
       .required("Email is Required"),
@@ -21,7 +22,6 @@ const Login = () => {
     validationSchema: userSchema,
     onSubmit: values => {
       dispatch(login(values))
-      alert(JSON.stringify(values, null, 2));
     },
   });
   const authState = useSelector((state) => state);
@@ -48,7 +48,7 @@ const Login = () => {
         <h3 className="text-center">Login</h3>
         <p className="text-center ">Log in to your account</p>
         <div className=" error text-center">
-          {isMessage.message === "Rejected" ? " You are not admin" : ""}
+          {isMessage.message === "Rejected" ? "Please check your Email and Password" : ""}
         </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
