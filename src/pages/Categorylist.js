@@ -28,7 +28,6 @@ const productCategoryList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const productCategoryState = useSelector((state) => state.productCategory.prodcategories);
-  console.log(productCategoryState);
   const data1 = [];
   for (let i = 0; i < productCategoryState.length; i++) {
     data1.push({
@@ -48,7 +47,6 @@ const productCategoryList = () => {
 
     });
   }
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Product Categorys</h3>

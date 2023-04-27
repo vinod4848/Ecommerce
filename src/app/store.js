@@ -8,17 +8,18 @@ import blogCatReducer from "../features/blogCat/blogCatSlice";
 import productCategoryReducer from "../features/productCategory/productCategorySilce";
 import colorReducer from "../features/color/colorSlice";
 import enquirieReducer from "../features/enquiries/enquiriesSilce";
+import uploadReducer from "../features/upload/uploadSlice";
 export const store = configureStore({
-    reducer: {
-        auth: authReducer,
-        customer: customerReducer,
-        product: productReducer,
-        brand: brandReducer,
-        blog: blogReducer,
-        blogCat: blogCatReducer,
-        productCategory: productCategoryReducer,
-        color: colorReducer,
-        enquirie: enquirieReducer,
-
-    },
+  reducer: {
+    auth: authReducer,
+    customer: customerReducer,
+    product: productReducer,
+    brand: brandReducer,
+    blog: blogReducer,
+    blogCat: blogCatReducer,
+    productCategory: productCategoryReducer,
+    color: colorReducer,
+    enquirie: enquirieReducer,
+    upload: uploadReducer,
+  },
 });

@@ -2,10 +2,9 @@ import { Table } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getblogCat } from "../features/blogCat/blogCatSlice";
-
 import { Link } from "react-router-dom";
-import { MdModeEditOutline } from "react-icons/md"
-import { MdOutlineDelete } from "react-icons/md"
+import { MdModeEditOutline } from "react-icons/md";
+import { MdOutlineDelete } from "react-icons/md";
 
 const columns = [
   {
@@ -28,7 +27,6 @@ const Brandlist = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const blogCatState = useSelector((state) => state.blogCat.blogCats);
-  console.log(blogCatState);
   const data1 = [];
   for (let i = 0; i < blogCatState.length; i++) {
     data1.push({
@@ -43,12 +41,9 @@ const Brandlist = () => {
             <MdOutlineDelete />
           </Link>
         </>
-
-      )
-
+      ),
     });
   }
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Blog Category List</h3>

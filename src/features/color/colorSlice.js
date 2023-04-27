@@ -16,7 +16,7 @@ const initialState = {
     isSuccess: false,
     message: ""
 }
-export const brandSlice = createSlice({
+export const colorSlice = createSlice({
     name: "colors",
     initialState,
     reducers: {},
@@ -44,4 +44,4 @@ export const brandSlice = createSlice({
 
 })
 
-export default brandSlice.reducer;
+export default colorSlice.reducer;

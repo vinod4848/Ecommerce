@@ -11,7 +11,7 @@ export const CustomInput = (props) => {
         placeholder={label}
         name={name}
         value={val}
-        onChange={onChange} 
+        onChange={onChange}
         onBlur={onBlur}
       />
       <label htmlFor={label}>{label}</label>
