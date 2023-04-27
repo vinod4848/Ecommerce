@@ -2,10 +2,9 @@ import { Table } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getblogCat } from "../features/blogCat/blogCatSlice";
-
 import { Link } from "react-router-dom";
-import { MdModeEditOutline } from "react-icons/md"
-import { MdOutlineDelete } from "react-icons/md"
+import { MdModeEditOutline } from "react-icons/md";
+import { MdOutlineDelete } from "react-icons/md";
 
 const columns = [
   {
@@ -42,9 +41,7 @@ const Brandlist = () => {
             <MdOutlineDelete />
           </Link>
         </>
-
-      )
-
+      ),
     });
   }
   return (
