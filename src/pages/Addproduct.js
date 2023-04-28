@@ -97,16 +97,14 @@ const Addproduct = () => {
       dispatch(createProduct(values));
       formik.resetForm();
       setColor(null);
+      setimages(null);
       setTimeout(() => {
         navigate("/admin/product-list");
       }, 3000);
     },
   });
-  console.log("formik", formik);
-  console.log("img", img);
   const handleColors = (e) => {
     setColor(e);
-    console.log(color);
   };
   return (
     <div>
@@ -198,9 +196,7 @@ const Addproduct = () => {
             className="form-control py-3 mb-3"
             id=""
           >
-            <option value="" disabled>
-              Select Tags
-            </option>
+            <option value="">Select Tags</option>
             <option value="featured">Featured</option>
             <option value="popular">Popular</option>
             <option value="special">Special</option>

@@ -1,47 +1,72 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import brandService from "./brandService";
 
-export const getBrands = createAsyncThunk('brand/getAllbrand', async (thunkAPI) => {
+export const getBrands = createAsyncThunk(
+  "brand/getAllbrand",
+  async (thunkAPI) => {
     try {
-        return await brandService.getBrands()
+      return await brandService.getBrands();
     } catch (error) {
-        return thunkAPI.rejectWithValue(error)
+      return thunkAPI.rejectWithValue(error);
     }
-})
+  }
+);
+
+export const createbrand = createAsyncThunk(
+  "brand/createbrand",
+  async (branddata, thunkAPI) => {
+    try {
+      return await brandService.createBrand(branddata);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const initialState = {
-    brands: [],
-    isError: false,
-    isLoding: false,
-    isSuccess: false,
-    message: ""
-}
+  brands: [],
+  isError: false,
+  isLoding: false,
+  isSuccess: false,
+  message: "",
+};
 export const brandSlice = createSlice({
-    name: "brands",
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(getBrands.pending,
-            (state) => {
-                state.isLoding = true;
-            })
-            .addCase(getBrands.fulfilled,
-                (state, action) => {
-                    state.isLoding = false;
-                    state.isError = false
-                    state.isSuccess = true
-                    state.brands = action.payload
-                })
-            .addCase(getBrands.rejected,
-                (state, action) => {
-                    state.isLoding = false;
-                    state.isError = true
-                    state.isSuccess = false
-                    state.message = action.error;
-                })
-    },
-
-
-})
+  name: "brands",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getBrands.pending, (state) => {
+        state.isLoding = true;
+      })
+      .addCase(getBrands.fulfilled, (state, action) => {
+        state.isLoding = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.brands = action.payload;
+      })
+      .addCase(getBrands.rejected, (state, action) => {
+        state.isLoding = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(createbrand.pending, (state) => {
+        state.isLoding = true;
+      })
+      .addCase(createbrand.fulfilled, (state, action) => {
+        state.isLoding = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.createBrand = action.payload;
+      })
+      .addCase(createbrand.rejected, (state, action) => {
+        state.isLoding = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      });
+  },
+});
 
 export default brandSlice.reducer;
