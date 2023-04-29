@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { CustomInput } from "../components/CustomInput";
-import { createbrand } from "../features/brand/brandSlice";
+import { createbrand, resetState } from "../features/brand/brandSlice";
 
 let userSchema = Yup.object().shape({
   title: Yup.string().required("Brand is Required"),
@@ -37,6 +37,7 @@ const AddBrand = () => {
       dispatch(createbrand(values));
       formik.resetForm();
       setTimeout(() => {
+        dispatch(resetState());
         navigate("/admin/list-brand");
       }, 3000);
     },

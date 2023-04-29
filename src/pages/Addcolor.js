@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { CustomInput } from "../components/CustomInput";
-import { createColor } from "../features/color/colorSlice";
+import { createColor, resetState } from "../features/color/colorSlice";
 
 let userSchema = Yup.object().shape({
   title: Yup.string().required("Brand is Required"),
@@ -37,6 +37,7 @@ const AddColor = () => {
       dispatch(createColor(values));
       formik.resetForm();
       setTimeout(() => {
+        dispatch(resetState());
         navigate("/admin/list-color");
       }, 3000);
     },
@@ -64,7 +65,7 @@ const AddColor = () => {
             className="btn btn-success border-0 rounde-3 my-5"
             type="submit"
           >
-           Add Color
+            Add Color
           </button>
         </form>
       </div>

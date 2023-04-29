@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { CustomInput } from "../components/CustomInput";
 import { createcategory } from "../features/productCategory/productCategorySilce";
+import { resetState } from "../features/color/colorSlice";
 
 let userSchema = Yup.object().shape({
   title: Yup.string().required("Category is Required"),
@@ -38,6 +39,7 @@ const AddCategory = () => {
       dispatch(createcategory(values));
       formik.resetForm();
       setTimeout(() => {
+        dispatch(resetState());
         navigate("/admin/list-category");
       }, 3000);
     },
