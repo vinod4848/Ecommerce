@@ -10,6 +10,8 @@ import { IoMdNotifications } from "react-icons/io";
 import { SiBrandfolder } from "react-icons/si";
 import { ImBlog } from "react-icons/im";
 import { BiCategoryAlt } from "react-icons/bi";
+import {SiGooglemarketingplatform} from "react-icons/si"
+import {RiCoupon3Fill} from "react-icons/ri"
 import { GrUnorderedList } from "react-icons/gr";
 import { FaBlogger } from "react-icons/fa";
 import { Layout, Menu, theme } from "antd";
@@ -41,6 +43,7 @@ const MainLayout = () => {
   };
 
   return (
+    // <Layout onContextMenu={(e) => e.preventDefault}>
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
@@ -146,6 +149,23 @@ const MainLayout = () => {
                   key: "blog-category-list",
                   icon: <ImBlog className="fs-4" />,
                   label: "Blog Category List",
+                },
+              ],
+            },
+            {
+              key: "marketing",
+              icon: <SiGooglemarketingplatform className="fs-4" />,
+              label: "Marketing",
+              children: [
+                {
+                  key: "coupon",
+                  icon: <RiCoupon3Fill className="fs-4" />,
+                  label: "Add Coupon",
+                },
+                {
+                  key: "coupon-list",
+                  icon: <RiCoupon3Fill className="fs-4" />,
+                  label: "Coupon List",
                 },
               ],
             },
