@@ -18,7 +18,6 @@ const AddblogCategory = () => {
 
   const newBlogCat = useSelector((state) => state.blogCat);
   const { isSuccess, isError, isLoding, createblogCat } = newBlogCat;
-  console.log(newBlogCat);
   useEffect(() => {
     if (isSuccess && createblogCat) {
       toast.success("Blog Category Added Successfully!");

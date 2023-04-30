@@ -36,11 +36,9 @@ const CouponList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const couponState = useSelector((state) => state.coupon.coupons);
-  console.log(couponState);
   const data1 = [];
 
   for (let i = 0; i < couponState.length; i++) {
-    console.log("fghjbn", i);
     data1.push({
       key: i,
       name: couponState[i].name,

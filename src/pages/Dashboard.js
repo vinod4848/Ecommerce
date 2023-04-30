@@ -1,4 +1,7 @@
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrders } from "../features/auth/authSlice";
 import { BsArrowDownRight } from "react-icons/bs";
 import { Table } from "antd";
 import { Column } from "@ant-design/plots";
@@ -17,8 +20,12 @@ const Dashboard = () => {
       dataIndex: "product",
     },
     {
-      title: "Status",
-      dataIndex: "status",
+      title: "Amount",
+      dataIndex: "amount",
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
     },
   ];
   const data1 = [];
@@ -109,6 +116,24 @@ const Dashboard = () => {
       },
     },
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOrders());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const orderState = useSelector((state) => state.auth.orders);
+  const data2 = [];
+  for (let i = 0; i < orderState.length; i++) {
+    data2.push({
+      key: i,
+      name: orderState[i].orderby.firstName,
+      product: orderState[i].products.map((i, j) => {
+        return <p key={j}>{i.product.title}</p>;
+      }),
+      amount: orderState[i].paymentintent.amount,
+      date: new Date(orderState[i].createdAt).toLocaleString(),
+    });
+  }
   return (
     <div>
       <h3 className="mb-4 title">Dashboard</h3>
@@ -162,7 +187,11 @@ const Dashboard = () => {
       <div className="mt-4">
         <h3 className="mt-5 title">Recent Orders</h3>
         <div>
-          <Table columns={columns} dataSource={data1} />
+          <Table
+            style={{ width: "100%" }}
+            columns={columns}
+            dataSource={data2}
+          />
         </div>
       </div>
     </div>
