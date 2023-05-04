@@ -3,7 +3,7 @@ import { base_url } from "../../utils/base_url";
 import { Config } from "../../utils/axiosconfig";
 
 const getBrands = async () => {
-  const response = await axios.get(`${base_url}brand/getAllbrand`);
+  const response = await axios.get(`${base_url}brand/getAllbrand`,Config);
   return response.data;
 };
 const createBrand = async (brand) => {
@@ -24,7 +24,6 @@ const updateAbrand = async (brand) => {
   return response.data;
 };
 const getBrand = async (id) => {
-  debugger
   const response = await axios.get(`${base_url}brand/${id}`, Config);
 
   return response.data;
