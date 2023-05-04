@@ -1,11 +1,11 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { Table } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getColors } from "../features/color/colorSlice";
+import { delteAColor, getColors } from "../features/color/colorSlice";
 import { Link } from "react-router-dom";
-import { MdModeEditOutline } from "react-icons/md"
-import { MdOutlineDelete } from "react-icons/md"
+import { BiEdit } from "react-icons/bi";
+import { MdOutlineDelete } from "react-icons/md";
+import CustomModel from "../components/CustomModel";
 
 const columns = [
   {
@@ -21,11 +21,19 @@ const columns = [
     dataIndex: "action",
   },
 ];
-const colorList = () => {
+const ColorList = () => {
+  const [colorId, setcolorId] = useState();
+  const [open, setOpen] = useState(false);
+  const showModal = (e) => {
+    setOpen(true);
+    setcolorId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getColors());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const colorState = useSelector((state) => state.color.colors);
   const data1 = [];
@@ -35,26 +43,45 @@ const colorList = () => {
       title: colorState[i].title,
       action: (
         <>
-          <Link to="/" className="fs-3 text-danger">
-            <MdModeEditOutline />
+          <Link
+            to={`/admin/color/${colorState[i]._id}`}
+            className="fs-3 text-danger"
+          >
+            <BiEdit />
           </Link>
-          <Link to="/" className="ms-2 fs-3 text-danger">
+          <button
+            className="ms-2 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(colorState[i]._id)}
+          >
             <MdOutlineDelete />
-          </Link>
+          </button>
         </>
-
-      )
-
+      ),
     });
   }
+  const deleteColor = (e) => {
+    dispatch(delteAColor(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getColors());
+    }, 100);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Colors</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModel
+        hideModal={hideModal}
+        open={open}
+        PerformAction={() => {
+          deleteColor(colorId);
+        }}
+        title="Are you sure you want to delete this color"
+      />
     </div>
   );
 };
 
-export default colorList;
+export default ColorList;

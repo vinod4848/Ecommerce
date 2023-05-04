@@ -92,7 +92,7 @@ const Dashboard = () => {
     xField: "type",
     yField: "sales",
     color: ({ type }) => {
-      return "#ffd333";
+      return "#399889";
     },
     label: {
       position: "middle",

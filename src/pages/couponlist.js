@@ -3,7 +3,7 @@ import { Table } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { MdModeEditOutline } from "react-icons/md";
+import { BiEdit } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
 import { getCoupans } from "../features/coupon/couponSlice";
 
@@ -21,7 +21,7 @@ const columns = [
     dataIndex: "discount",
   },
   {
-    title: "Expiry",
+    title: "Expiry Date",
     dataIndex: "expiry",
   },
   {
@@ -47,7 +47,7 @@ const CouponList = () => {
       action: (
         <>
           <Link to="/" className="fs-3 text-danger">
-            <MdModeEditOutline />
+            <BiEdit />
           </Link>
           <Link to="/" className="ms-2 fs-3 text-danger">
             <MdOutlineDelete />

@@ -11,11 +11,43 @@ export const getColors = createAsyncThunk(
     }
   }
 );
+export const getAColor = createAsyncThunk(
+  "color/get-color",
+  async (id, thunkAPI) => {
+    try {
+      return await colorService.getColor(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 export const createColor = createAsyncThunk(
   "color/createcolor",
-  async (colordata, thunkAPI) => {
+  async (colorData, thunkAPI) => {
     try {
-      return await colorService.createColor(colordata);
+      return await colorService.createColor(colorData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const updateColor = createAsyncThunk(
+
+  "color/update-color",
+  async (color, thunkAPI) => {
+    debugger
+    try {
+      return await colorService.updateAColor(color);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const delteAColor = createAsyncThunk(
+  "color/delete-color",
+  async (id, thunkAPI) => {
+    try {
+      return await colorService.deleteColor(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -60,6 +92,52 @@ export const colorSlice = createSlice({
         state.createcolor = action.payload;
       })
       .addCase(createColor.rejected, (state, action) => {
+        state.isLoding = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(getAColor.pending, (state) => {
+        state.isLoding = true;
+      })
+      .addCase(getAColor.fulfilled, (state, action) => {
+        debugger
+        state.isLoding = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.colorName = action.payload.getcolor.title;
+      })
+      .addCase(getAColor.rejected, (state, action) => {
+        state.isLoding = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(updateColor.pending, (state) => {
+        state.isLoding = true;
+      })
+      .addCase(updateColor.fulfilled, (state, action) => {
+        state.isLoding = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.updatedColor = action.payload;
+      })
+      .addCase(updateColor.rejected, (state, action) => {
+        state.isLoding = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(delteAColor.pending, (state) => {
+        state.isLoding = true;
+      })
+      .addCase(delteAColor.fulfilled, (state, action) => {
+        state.isLoding = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.deltedColor = action.payload;
+      })
+      .addCase(delteAColor.rejected, (state, action) => {
         state.isLoding = false;
         state.isError = true;
         state.isSuccess = false;

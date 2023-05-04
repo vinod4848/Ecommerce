@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getblogCat } from "../features/blogCat/blogCatSlice";
 import { Link } from "react-router-dom";
-import { MdModeEditOutline } from "react-icons/md";
+import { BiEdit } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
 
 const columns = [
@@ -35,7 +35,7 @@ const Brandlist = () => {
       action: (
         <>
           <Link to="/" className="fs-3 text-danger">
-            <MdModeEditOutline />
+            <BiEdit />
           </Link>
           <Link to="/" className="ms-2 fs-3 text-danger">
             <MdOutlineDelete />
