@@ -27,7 +27,6 @@ const AddBlog = () => {
   }, []);
 
   const blogCatState = useSelector((state) => state.blogCat.blogCats);
-  console.log(blogCatState);
   const imgState = useSelector((state) => state.upload.images);
   const newProduct = useSelector((state) => state.product);
 

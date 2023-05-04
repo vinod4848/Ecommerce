@@ -10,8 +10,8 @@ import { IoMdNotifications } from "react-icons/io";
 import { SiBrandfolder } from "react-icons/si";
 import { ImBlog } from "react-icons/im";
 import { BiCategoryAlt } from "react-icons/bi";
-import {SiGooglemarketingplatform} from "react-icons/si"
-import {RiCoupon3Fill} from "react-icons/ri"
+import { SiGooglemarketingplatform } from "react-icons/si";
+import { RiCoupon3Fill } from "react-icons/ri";
 import { GrUnorderedList } from "react-icons/gr";
 import { FaBlogger } from "react-icons/fa";
 import { Layout, Menu, theme } from "antd";
@@ -197,7 +197,7 @@ const MainLayout = () => {
           <div className="d-flex gap-4 align-items-center">
             <div className="position-relative">
               <IoMdNotifications className="fs-4" />
-              <span className="badge bg-warning rounded-circle p-1 position-absolute">
+              <span className="badge bg-danger rounded-circle p-1 position-absolute">
                 2
               </span>
             </div>

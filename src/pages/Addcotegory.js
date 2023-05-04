@@ -16,7 +16,6 @@ const AddCategory = () => {
   const dispatch = useDispatch();
 
   const newCategory = useSelector((state) => state.productCategory);
-  console.log(newCategory);
   const { isSuccess, isError, isLoding, createCategory } = newCategory;
 
   useEffect(() => {

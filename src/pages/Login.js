@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { CustomInput } from "../components/CustomInput";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
 const Login = () => {
@@ -10,7 +11,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   let userSchema = Yup.object().shape({
-    email: Yup.string().email("Email Should  be vailid")
+    email: Yup.string()
+      .email("Email Should  be vailid")
       .required("Email is Required"),
     password: Yup.string().required("Pasword is Required"),
   });
@@ -20,25 +22,35 @@ const Login = () => {
       password: "",
     },
     validationSchema: userSchema,
-    onSubmit: values => {
-      dispatch(login(values))
+    onSubmit: (values) => {
+      dispatch(login(values));
     },
   });
   const authState = useSelector((state) => state);
   const { user, isLoding, isError, isSuccess, isMessage } = authState.auth;
 
   useEffect(() => {
+    if (isSuccess && isMessage) {
+      toast.success("Login Successfully!");
+    }
+    if (isError) {
+      toast.error("Somthing want wrong!");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, isError, isLoding]);
+
+  useEffect(() => {
     if (isSuccess) {
-      navigate("admin")
+      navigate("admin");
     } else {
       navigate("");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, isLoding, isError, isSuccess])
+  }, [user, isLoding, isError, isSuccess]);
 
   return (
-    <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
+    <div className="py-5" style={{ background: "#399889", minHeight: "100vh" }}>
       <br />
       <br />
       <br />
@@ -48,7 +60,9 @@ const Login = () => {
         <h3 className="text-center">Login</h3>
         <p className="text-center ">Log in to your account</p>
         <div className=" error text-center">
-          {isMessage.message === "Rejected" ? "Please check your Email and Password" : ""}
+          {isMessage.message === "Rejected"
+            ? "Please check your Email and Password"
+            : ""}
         </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
@@ -58,12 +72,12 @@ const Login = () => {
             id="email"
             val={formik.values.email}
             onChange={formik.handleChange("email")}
-            onBlur={formik.handleChange("email")} />
+            onBlur={formik.handleChange("email")}
+          />
           <div className="error">
             {formik.touched.password && formik.errors.password ? (
               <div>{formik.errors.password}</div>
             ) : null}
-
           </div>
           <CustomInput
             type="password"
@@ -72,12 +86,12 @@ const Login = () => {
             id="pass"
             val={formik.values.password}
             onChange={formik.handleChange("password")}
-            onBlur={formik.handleChange("password")} />
+            onBlur={formik.handleChange("password")}
+          />
           <div className="error">
             {formik.touched.password && formik.errors.password ? (
               <div>{formik.errors.password}</div>
             ) : null}
-
           </div>
           <div className="mb-3 text-end">
             <Link to="forgot-password" className="">
@@ -86,7 +100,7 @@ const Login = () => {
           </div>
           <button
             className="border-0 px-3 py-2 text-white fw-blod w-100 text-center text-decoration-none fs-5"
-            style={{ background: "#ffd333" }}
+            style={{ background: "#399889" }}
             type="submit"
           >
             Login

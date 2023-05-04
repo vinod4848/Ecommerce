@@ -1,10 +1,11 @@
 import { Table } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBrands } from "../features/brand/brandSlice";
+import { delteABrand, getBrands } from "../features/brand/brandSlice";
 import { Link } from "react-router-dom";
-import { MdModeEditOutline } from "react-icons/md"
-import { MdOutlineDelete } from "react-icons/md"
+import { BiEdit } from "react-icons/bi";
+import { MdOutlineDelete } from "react-icons/md";
+import CustomModel from "../components/CustomModel";
 
 const columns = [
   {
@@ -21,6 +22,15 @@ const columns = [
   },
 ];
 const Brandlist = () => {
+  const [brandId, setbrandId] = useState();
+  const [open, setOpen] = useState(false);
+  const showModal = (e) => {
+    setOpen(true);
+    setbrandId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBrands());
@@ -34,24 +44,43 @@ const Brandlist = () => {
       title: brandState[i].title,
       action: (
         <>
-          <Link to="/" className="fs-3 text-danger">
-            <MdModeEditOutline />
+          <Link
+            to={`/admin/brand/${brandState[i]._id}`}
+            className="fs-3 text-danger"
+          >
+            <BiEdit />
           </Link>
-          <Link to="/" className="ms-2 fs-3 text-danger">
+          <button
+            className="ms-2 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(brandState[i]._id)}
+          >
             <MdOutlineDelete />
-          </Link>
+          </button>
         </>
-
-      )
-
+      ),
     });
   }
+  const deletBrand = (e) => {
+    dispatch(delteABrand(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getBrands());
+    }, 100);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Brands</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModel
+        hideModal={hideModal}
+        open={open}
+        PerformAction={() => {
+          deletBrand(brandId);
+        }}
+        title="Are you sure you want to delete this brand"
+      />
     </div>
   );
 };

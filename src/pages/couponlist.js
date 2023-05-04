@@ -3,7 +3,7 @@ import { Table } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { MdModeEditOutline } from "react-icons/md";
+import { BiEdit } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
 import { getCoupans } from "../features/coupon/couponSlice";
 
@@ -21,7 +21,7 @@ const columns = [
     dataIndex: "discount",
   },
   {
-    title: "Expiry",
+    title: "Expiry Date",
     dataIndex: "expiry",
   },
   {
@@ -36,11 +36,9 @@ const CouponList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const couponState = useSelector((state) => state.coupon.coupons);
-  console.log(couponState);
   const data1 = [];
 
   for (let i = 0; i < couponState.length; i++) {
-    console.log("fghjbn", i);
     data1.push({
       key: i,
       name: couponState[i].name,
@@ -49,7 +47,7 @@ const CouponList = () => {
       action: (
         <>
           <Link to="/" className="fs-3 text-danger">
-            <MdModeEditOutline />
+            <BiEdit />
           </Link>
           <Link to="/" className="ms-2 fs-3 text-danger">
             <MdOutlineDelete />

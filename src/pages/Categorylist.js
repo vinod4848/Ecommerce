@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategory } from "../features/productCategory/productCategorySilce";
 import { Link } from "react-router-dom";
-import { MdModeEditOutline } from "react-icons/md"
+import { BiEdit } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md"
 
 const columns = [
@@ -36,7 +36,7 @@ const productCategoryList = () => {
       action: (
         <>
           <Link to="/" className="fs-3 text-danger">
-            <MdModeEditOutline />
+            <BiEdit />
           </Link>
           <Link to="/" className="ms-2 fs-3 text-danger">
             <MdOutlineDelete />
