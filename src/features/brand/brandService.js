@@ -24,7 +24,6 @@ const updateAbrand = async (brand) => {
   return response.data;
 };
 const getBrand = async (id) => {
-  debugger
   const response = await axios.get(`${base_url}brand/${id}`, Config);
 
   return response.data;

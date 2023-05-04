@@ -27,7 +27,6 @@ const AddColor = () => {
     newColor;
 
   useEffect(() => {
-    debugger
     if (getcolorId !== undefined) {
       dispatch(getAColor(getcolorId));
     } else {

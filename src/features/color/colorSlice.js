@@ -35,7 +35,6 @@ export const updateColor = createAsyncThunk(
 
   "color/update-color",
   async (color, thunkAPI) => {
-    debugger
     try {
       return await colorService.updateAColor(color);
     } catch (error) {
@@ -101,7 +100,6 @@ export const colorSlice = createSlice({
         state.isLoding = true;
       })
       .addCase(getAColor.fulfilled, (state, action) => {
-        debugger
         state.isLoding = false;
         state.isError = false;
         state.isSuccess = true;
