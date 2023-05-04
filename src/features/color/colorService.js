@@ -37,6 +37,6 @@ const colorService = {
   createColor,
   getColor,
   updateAColor,
-  deleteColor
+  deleteColor,
 };
 export default colorService;
