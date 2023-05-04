@@ -1,8 +1,9 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
 import { Config } from "../../utils/axiosconfig";
+
 const getblogCat = async () => {
-  const response = await axios.get(`${base_url}blogCat/getAllblogCat`);
+  const response = await axios.get(`${base_url}blogCat/getAllblogCat`,Config);
   return response.data;
 };
 

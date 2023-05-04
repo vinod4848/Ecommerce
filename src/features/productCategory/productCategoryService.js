@@ -3,7 +3,7 @@ import { base_url } from "../../utils/base_url";
 import { Config } from "../../utils/axiosconfig";
 
 const getAllCategory = async () => {
-  const response = await axios.get(`${base_url}category/getAllCategory`);
+  const response = await axios.get(`${base_url}category/category`,Config);
   return response.data;
 };
 const createCategory = async (category) => {

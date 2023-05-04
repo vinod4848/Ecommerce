@@ -3,7 +3,7 @@ import { base_url } from "../../utils/base_url";
 import { Config } from "../../utils/axiosconfig";
 
 const getblogs = async () => {
-  const response = await axios.get(`${base_url}blog/getAllBlog`);
+  const response = await axios.get(`${base_url}blog/getAllBlog`,Config);
   return response.data;
 };
 
