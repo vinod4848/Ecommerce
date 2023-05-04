@@ -3,7 +3,7 @@ import { base_url } from "../../utils/base_url";
 import { Config } from "../../utils/axiosconfig";
 
 const getColors = async () => {
-  const response = await axios.get(`${base_url}color/getAllcolor`);
+  const response = await axios.get(`${base_url}color/getAllcolor`, Config);
   return response.data;
 };
 const createColor = async (color) => {
@@ -37,6 +37,6 @@ const colorService = {
   createColor,
   getColor,
   updateAColor,
-  deleteColor
+  deleteColor,
 };
 export default colorService;
