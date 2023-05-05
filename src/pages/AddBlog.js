@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getblogCat } from "../features/blogCat/blogCatSlice";
+import { getblogCats } from "../features/blogCat/blogCatSlice";
 import { createBlog, resetState } from "../features/blog/blogSlice";
 
 let userSchema = Yup.object().shape({
@@ -22,7 +22,7 @@ const AddBlog = () => {
   const [images, setimages] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getblogCat());
+    dispatch(getblogCats());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -53,6 +53,7 @@ function App() {
           <Route path="product" element={<Addproduct />} />
           <Route path="product-list" element={<Productlist />} />
           <Route path="blog-category" element={<AddblogCategory />} />
+          <Route path="blog-category/:id" element={<AddblogCategory />} />
         </Route>
       </Routes>
     </Router>
