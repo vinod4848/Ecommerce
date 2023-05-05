@@ -6,7 +6,6 @@ const getblogCat = async () => {
   const response = await axios.get(`${base_url}blogCat/getAllblogCat`,Config);
   return response.data;
 };
-
 const createBlogCat = async (brand) => {
   const response = await axios.post(
     `${base_url}blogCat/createblogCat`,
