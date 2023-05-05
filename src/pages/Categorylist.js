@@ -1,11 +1,14 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { Table } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategory } from "../features/productCategory/productCategorySilce";
+import {
+  getAllCategory,
+  delteACategory,
+} from "../features/productCategory/productCategorySilce";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
-import { MdOutlineDelete } from "react-icons/md"
+import { MdOutlineDelete } from "react-icons/md";
+import CustomModel from "../components/CustomModel";
 
 const columns = [
   {
@@ -21,13 +24,24 @@ const columns = [
     dataIndex: "action",
   },
 ];
-const productCategoryList = () => {
+const ProductCategoryList = () => {
+  const [categoryId, setcategoryId] = useState();
+  const [open, setOpen] = useState(false);
+  const showModal = (e) => {
+    setOpen(true);
+    setcategoryId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCategory());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const productCategoryState = useSelector((state) => state.productCategory.prodcategories);
+  const productCategoryState = useSelector(
+    (state) => state.productCategory.prodcategories
+  );
   const data1 = [];
   for (let i = 0; i < productCategoryState.length; i++) {
     data1.push({
@@ -35,26 +49,45 @@ const productCategoryList = () => {
       title: productCategoryState[i].title,
       action: (
         <>
-          <Link to="/" className="fs-3 text-danger">
+          <Link
+            to={`/admin/category/${productCategoryState[i]._id}`}
+            className="fs-3 text-danger"
+          >
             <BiEdit />
           </Link>
-          <Link to="/" className="ms-2 fs-3 text-danger">
+          <button
+            className="ms-2 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(productCategoryState[i]._id)}
+          >
             <MdOutlineDelete />
-          </Link>
+          </button>
         </>
-
-      )
-
+      ),
     });
   }
+  const delteCategory = (e) => {
+    dispatch(delteACategory(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getAllCategory());
+    }, 100);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Product Categorys</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModel
+        hideModal={hideModal}
+        open={open}
+        PerformAction={() => {
+          delteCategory(categoryId);
+        }}
+        title="Are you sure you want to delete this Categorys"
+      />
     </div>
   );
 };
 
-export default productCategoryList;
+export default ProductCategoryList;

@@ -19,12 +19,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(true);
-
+  const getUserData = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const {
     token: { colorBgContainer },
@@ -43,8 +44,8 @@ const MainLayout = () => {
   };
 
   return (
-    // <Layout onContextMenu={(e) => e.preventDefault}>
-    <Layout>
+    <Layout contextmenu={(e) => e.preventDefault}>
+    {/* <Layout> */}
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           <h2 className="text-white fs-5 text-center py-3 mb-0">
@@ -216,8 +217,8 @@ const MainLayout = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <h5 className="mb-0">Abhi</h5>
-                <p className="mb-0">abhi@gmail.com</p>
+                <h5 className="mb-0">{getUserData.firstName}</h5>
+                <p className="mb-0">{getUserData.email}</p>
               </div>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>
