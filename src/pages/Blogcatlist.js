@@ -1,11 +1,11 @@
 import { Table } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getblogCat } from "../features/blogCat/blogCatSlice";
+import { delteABlogCat, getblogCats } from "../features/blogCat/blogCatSlice";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
-
+import CustomModel from "../components/CustomModel";
 const columns = [
   {
     title: "SN",
@@ -20,10 +20,19 @@ const columns = [
     dataIndex: "action",
   },
 ];
-const Brandlist = () => {
+const BlogCategoryList = () => {
+  const [blogCatsId, setblogCatsId] = useState();
+  const [open, setOpen] = useState(false);
+  const showModal = (e) => {
+    setOpen(true);
+    setblogCatsId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getblogCat());
+    dispatch(getblogCats());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const blogCatState = useSelector((state) => state.blogCat.blogCats);
@@ -34,24 +43,45 @@ const Brandlist = () => {
       title: blogCatState[i].title,
       action: (
         <>
-          <Link to="/" className="fs-3 text-danger">
+          <Link
+            to={`/admin/blog-category/${blogCatState[i]._id}`}
+            className="fs-3 text-danger"
+          >
             <BiEdit />
           </Link>
-          <Link to="/" className="ms-2 fs-3 text-danger">
+          <button
+            className="ms-2 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(blogCatState[i]._id)}
+          >
             <MdOutlineDelete />
-          </Link>
+          </button>
         </>
       ),
     });
   }
+  const deleteBlogCat = (e) => {
+    dispatch(delteABlogCat(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getblogCats());
+    }, 100);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Blog Category List</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModel
+        hideModal={hideModal}
+        open={open}
+        PerformAction={() => {
+          deleteBlogCat(blogCatsId);
+        }}
+        title="Are you sure you want to delete this brand"
+      />
     </div>
   );
 };
 
-export default Brandlist;
+export default BlogCategoryList;
