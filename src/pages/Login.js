@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
+import background from "../bgimg.jpg";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,13 +51,23 @@ const Login = () => {
   }, [user, isLoding, isError, isSuccess]);
 
   return (
-    <div className="py-5" style={{ background: "#399889", minHeight: "100vh" }}>
+    <div
+      className="py-5"
+      style={{
+        minHeight: "100vh",
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+      }}
+    >
       <br />
       <br />
       <br />
       <br />
       <br />
-      <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
+      <div
+        className="my-6 w-25 rounded-3 mx-auto p-4"
+        style={{ backgroundColor: "rgba(47,79,79,0.4)" }}
+      >
         <h3 className="text-center">Login</h3>
         <p className="text-center ">Log in to your account</p>
         <div className=" error text-center">
