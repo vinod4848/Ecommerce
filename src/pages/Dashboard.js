@@ -122,6 +122,7 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const orderState = useSelector((state) => state.auth.orders);
+  console.log(orderState,"orderState");
   const data2 = [];
   for (let i = 0; i < orderState.length; i++) {
     data2.push({
