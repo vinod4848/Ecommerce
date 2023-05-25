@@ -217,8 +217,8 @@ const MainLayout = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <h5 className="mb-0">{getUserData.firstName}</h5>
-                <p className="mb-0">{getUserData.email}</p>
+                <h5 className="mb-0">{getUserData?.firstName}</h5>
+                <p className="mb-0">{getUserData?.email}</p>
               </div>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>
