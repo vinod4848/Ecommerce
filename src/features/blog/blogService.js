@@ -6,14 +6,45 @@ const getblogs = async () => {
   const response = await axios.get(`${base_url}blog/`, Config);
   return response.data;
 };
-
 const createBlog = async (blog) => {
-  const response = await axios.post(`${base_url}blog/createBlog`, blog, Config);
+  try {
+    const response = await axios.post(
+      `${base_url}blog/createBlog`,
+      blog,
+      Config
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to create blog: " + error.message);
+  }
+};
+const updateBlog = async (blog) => {
+  const response = await axios.put(
+    `${base_url}blog/${blog.id}`,
+    {
+      title: blog.blogData.title,
+      description: blog.blogData.description,
+      category: blog.blogData.category,
+    },
+    { headers: Config }
+  );
   return response.data;
 };
+const getBlog = async (id) => {
+  const response = await axios.get(`${base_url}blog/${id}`, Config);
 
+  return response.data;
+};
+const deleteBlog = async (id) => {
+  const response = await axios.delete(`${base_url}blog/${id}`, Config);
+
+  return response.data;
+};
 const blogService = {
   getblogs,
   createBlog,
+  updateBlog,
+  getBlog,
+  deleteBlog,
 };
 export default blogService;

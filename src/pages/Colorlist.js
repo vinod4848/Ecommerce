@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,12 +34,12 @@ const ColorList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getColors());
-  }, []);
+  }, [dispatch]);
   const colorState = useSelector((state) => state.color.colors);
   const data1 = [];
   for (let i = 0; i < colorState.length; i++) {
     data1.push({
-      key: i,
+      key: i +1,
       title: colorState[i].title,
       action: (
         <>

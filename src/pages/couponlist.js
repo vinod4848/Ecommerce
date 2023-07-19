@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,14 +42,13 @@ const CouponList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCoupans());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
   const couponState = useSelector((state) => state.coupon.coupons);
   const data1 = [];
 
   for (let i = 0; i < couponState.length; i++) {
     data1.push({
-      key: i,
+      key: i+1,
       name: couponState[i].name,
       discount: couponState[i].discount,
       expiry: new Date(couponState[i].expiry).toLocaleString(),

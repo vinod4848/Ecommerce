@@ -21,7 +21,6 @@ const AddBrand = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const getbrandId = location.pathname.split("/")[3];
-
   const newBrand = useSelector((state) => state.brand);
   const { isSuccess, isError, isLoding, createBrand, brandName, updatedBrand } =
     newBrand;
@@ -32,8 +31,7 @@ const AddBrand = () => {
     } else {
       dispatch(resetState());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getbrandId]);
+  }, [dispatch, getbrandId]);
 
   useEffect(() => {
     if (isSuccess && createBrand) {
@@ -46,8 +44,7 @@ const AddBrand = () => {
     if (isError) {
       toast.error("Somthing want wrong!");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, isError, isLoding]);
+  }, [isSuccess, isError, isLoding, createBrand, updatedBrand, navigate]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -75,7 +72,7 @@ const AddBrand = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {getbrandId !== undefined ? "Edit" : "Add"} Brand
+        { getbrandId !== undefined ? "Edit" : "Add"} Brand
       </h3>
       <div>
         <form

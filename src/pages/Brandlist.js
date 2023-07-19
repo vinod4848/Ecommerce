@@ -34,13 +34,12 @@ const Brandlist = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBrands());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
   const brandState = useSelector((state) => state.brand.brands);
   const data1 = [];
   for (let i = 0; i < brandState.length; i++) {
     data1.push({
-      key: i,
+      key: i+1,
       title: brandState[i].title,
       action: (
         <>

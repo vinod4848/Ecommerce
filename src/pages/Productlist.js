@@ -1,11 +1,11 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Table } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProduct } from "../features/product/productSlice";
+import { getAllProduct, delteAProduct } from "../features/product/productSlice";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
-import { MdOutlineDelete } from "react-icons/md"
+import { MdOutlineDelete } from "react-icons/md";
+import CustomModel from "../components/CustomModel";
 const columns = [
   {
     title: "SN",
@@ -42,16 +42,24 @@ const columns = [
 ];
 
 const Productlist = () => {
+  const [ProductId, setProduct] = useState();
+  const [open, setOpen] = useState(false);
+  const showModal = (e) => {
+    setOpen(true);
+    setProduct(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProduct());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
   const productState = useSelector((state) => state.product.products);
   const data1 = [];
   for (let i = 0; i < productState.length; i++) {
     data1.push({
-      key: i,
+      key: i +1,
       title: productState[i].title,
       description: productState[i].description,
       price: `$${productState[i].price}`,
@@ -61,23 +69,43 @@ const Productlist = () => {
       color: productState[i].color,
       action: (
         <>
-          <Link to="/" className="fs-3 text-danger">
+          <Link
+            to={`/admin/product/${productState[i]._id}`}
+            className="fs-3 text-danger"
+          >
             <BiEdit />
           </Link>
-          <Link to="/" className="ms-2 fs-3 text-danger">
+          <button
+            className="ms-2 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(productState[i]._id)}
+          >
             <MdOutlineDelete />
-          </Link>
+          </button>
         </>
-
-      )
+      ),
     });
   }
+  const deletProduct = (e) => {
+    dispatch(delteAProduct(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getAllProduct());
+    }, 100);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Products</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModel
+        hideModal={hideModal}
+        open={open}
+        PerformAction={() => {
+          deletProduct(ProductId);
+        }}
+        title="Are you sure you want to delete this Product"
+      />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,7 +55,7 @@ const Enquiries = () => {
   useEffect(() => {
     dispatch(resetState());
     dispatch(getAllenqs());
-  }, []);
+  }, [dispatch]);
   const enqState = useSelector((state) => state.enquirie.enquiries);
   const data1 = [];
   for (let i = 0; i < enqState.length; i++) {

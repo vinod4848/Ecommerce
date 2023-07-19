@@ -33,8 +33,8 @@ const AddCoupon = () => {
     } else {
       dispatch(resetState);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getcouponId]);
+
+  }, [dispatch, getcouponId]);
 
   useEffect(() => {
     if (isSuccess && createcoupon) {
@@ -46,8 +46,8 @@ const AddCoupon = () => {
     if (isError) {
       toast.error("Somthing want wrong!");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, isError, isLoding]);
+
+  }, [isSuccess, isError, isLoding, createcoupon, updatedCoupon]);
 
   const formik = useFormik({
     enableReinitialize: true,

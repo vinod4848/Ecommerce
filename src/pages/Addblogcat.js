@@ -35,8 +35,7 @@ const AddblogCategory = () => {
     } else {
       dispatch(resetState());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getblogCatId]);
+  }, [dispatch, getblogCatId]);
 
   useEffect(() => {
     if (isSuccess && createblogCat) {
@@ -48,8 +47,7 @@ const AddblogCategory = () => {
     if (isError) {
       toast.error("Somthing want wrong!");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, isError, isLoding]);
+  }, [isSuccess, isError, isLoding, createblogCat, updatedBlogCat]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -75,7 +73,6 @@ const AddblogCategory = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {" "}
         {getblogCatId !== undefined ? "Edit" : "Add"} Blog Category
       </h3>
       <div>

@@ -11,16 +11,6 @@ export const getBrands = createAsyncThunk(
     }
   }
 );
-export const getABrand = createAsyncThunk(
-  "brand/get-brand",
-  async (id, thunkAPI) => {
-    try {
-      return await brandService.getBrand(id);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
 export const createbrand = createAsyncThunk(
   "brand/createbrand",
   async (brandData, thunkAPI) => {
@@ -32,6 +22,17 @@ export const createbrand = createAsyncThunk(
     }
   }
 );
+export const getABrand = createAsyncThunk(
+  "brand/get-brand",
+  async (id, thunkAPI) => {
+    try {
+      return await brandService.getBrand(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const updateBrand = createAsyncThunk(
   "brand/update-brand",
   async (brand, thunkAPI) => {

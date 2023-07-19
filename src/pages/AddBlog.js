@@ -7,9 +7,15 @@ import { dellImages, uploadImages } from "../features/upload/uploadSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getblogCats } from "../features/blogCat/blogCatSlice";
-import { createBlog, resetState } from "../features/blog/blogSlice";
+import { useMemo } from 'react';
+import {
+  createBlog,
+  getABlog,
+  resetState,
+  updateABlog,
+} from "../features/blog/blogSlice";
 
 let userSchema = Yup.object().shape({
   title: Yup.string().required("Title is Required"),
@@ -19,28 +25,55 @@ let userSchema = Yup.object().shape({
 
 const AddBlog = () => {
   const navigate = useNavigate();
-  const [images, setimages] = useState();
+  const [images, setImages] = useState([]);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const getblogId = location.pathname.split("/")[3];
+
   useEffect(() => {
     dispatch(getblogCats());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   const blogCatState = useSelector((state) => state.blogCat.blogCats);
   const imgState = useSelector((state) => state.upload.images);
-  const newProduct = useSelector((state) => state.product);
+  const newBlog = useSelector((state) => state.blog.blog);
 
-  const { isLoding, isError, isSuccess, createdProdduct } = newProduct;
+  const {
+    isLoding,
+    isError,
+    isSuccess,
+    blogName,
+    blogDescription,
+    blogCategory,
+    blogImage,
+  } = newBlog;
 
   useEffect(() => {
-    if (isSuccess && createdProdduct) {
-      toast.success("Product Added Successfully!");
+    if (getblogId !== undefined) {
+      dispatch(getABlog(getblogId));
+    } else {
+      dispatch(resetState);
+    }
+  }, [dispatch, getblogId]);
+
+  function getImage(images) {
+    if (Array.isArray(images)) {
+      let array = images.map((e) => e.public_id);
+      return array;
+    }
+  }
+  useEffect(() => {
+    if (isSuccess && createBlog) {
+      toast.success("Blog Added Successfully!");
+    }
+    if (updateABlog && isSuccess) {
+      toast.success("Blog Updated Successfully!");
+      navigate("/admin/blog-list");
     }
     if (isError) {
       toast.error("Somthing want wrong!");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoding, isError, isSuccess]);
+  }, [isLoding, isError, isSuccess, navigate]);
 
   const img = [];
   imgState.forEach((i) => {
@@ -53,36 +86,74 @@ const AddBlog = () => {
     formik.values.images = img;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images, img]);
+  
+
+  const initialValues = {
+    title: blogName || "",
+    description: blogDescription || "",
+    category: blogCategory || "",
+    images: getImage(blogImage),
+  };
   const formik = useFormik({
-    initialValues: {
-      title: "",
-      description: "",
-      category: "",
-      images: "",
-    },
+    initialValues: initialValues,
     validationSchema: userSchema,
     onSubmit: (values) => {
+      if (getblogId !== undefined) {
+        const data = { id: getblogId, blogData: values };
+        dispatch(updateABlog(data));
+      } else {
+        dispatch(createBlog(values));
+      }
       alert(JSON.stringify(values));
-      dispatch(createBlog(values));
       formik.resetForm();
-      setimages(null);
+      setImages(null);
       setTimeout(() => {
-        dispatch(resetState())
+        dispatch(resetState());
         navigate("/admin/blog-list");
       }, 3000);
     },
   });
+  // const img = [];
+  // imgState.forEach((i) => {
+  //   img.push({
+  //     public_id: i.public_id,
+  //     url: i.url,
+  //   });
+  // });
+  
+
+  // useEffect(() => {
+  //   formik.setValues((prevValues) => ({
+  //     ...prevValues,
+  //     images: img,
+  //   }));
+  // }, [formik, img, imgState]);
+  // const img = useMemo(() => {
+  //   return imgState.map((i) => ({
+  //     public_id: i.public_id,
+  //     url: i.url,
+  //   }));
+  // }, [imgState]);
+  
+  // useEffect(() => {
+  //   formik.setValues((prevValues) => ({
+  //     ...prevValues,
+  //     images: img,
+  //   }));
+  // }, [formik, img]);
+  
+
   return (
     <div>
       <h3 className="mb-4 title">Add Blog</h3>
       <form onSubmit={formik.handleSubmit} className="d-flex gap-3 flex-column">
         <CustomInput
           type="text"
-          label="Enter Product Title"
           name="title"
           onChange={formik.handleChange("title")}
           onBlur={formik.handleBlur("title")}
           val={formik.values.title}
+          label="Enter Blog Title"
         />
         <div className="error">
           {formik.touched.title && formik.errors.title}
@@ -90,10 +161,10 @@ const AddBlog = () => {
         <div>
           <CustomInput
             theme="snow"
-            label="Enter Product Description"
+            label="Enter Blog Description"
             name="description"
             onChange={formik.handleChange("description")}
-            value={formik.values.description}
+            val={formik.values.description}
           />
         </div>
         <div className="error">
@@ -103,7 +174,7 @@ const AddBlog = () => {
           name="category"
           onChange={formik.handleChange("category")}
           onBlur={formik.handleBlur("category")}
-          val={formik.values.category}
+          value={formik.values.category}
           className="form-control py-3 mb-3"
           id=""
         >

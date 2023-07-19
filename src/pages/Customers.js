@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Table } from "antd";
 import  { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +28,7 @@ const Customers = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
   const customerstate = useSelector((state) => state.customer.customers);
   const data1 = [];
   for (let i = 0; i < customerstate.length; i++) {

@@ -33,13 +33,12 @@ const BlogCategoryList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getblogCats());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
   const blogCatState = useSelector((state) => state.blogCat.blogCats);
   const data1 = [];
   for (let i = 0; i < blogCatState.length; i++) {
     data1.push({
-      key: i,
+      key: i +1,
       title: blogCatState[i].title,
       action: (
         <>

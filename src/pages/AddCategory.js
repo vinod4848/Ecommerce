@@ -37,8 +37,7 @@ const AddCategory = () => {
     } else {
       dispatch(resetState());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCategoryId]);
+  }, [dispatch, getCategoryId]);
 
   useEffect(() => {
     if (isSuccess && createCategory) {
@@ -52,8 +51,7 @@ const AddCategory = () => {
     if (isError) {
       toast.error("Somthing want wrong!");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, isLoding, isError]);
+  }, [isSuccess, isLoding, isError, createCategory, updatedCategory, navigate]);
 
   const formik = useFormik({
     enableReinitialize: true,

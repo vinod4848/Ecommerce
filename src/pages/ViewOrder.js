@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +5,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { getOrderByUser } from "../features/auth/authSlice";
+
 const columns = [
   {
     title: "SNo",
@@ -36,7 +36,7 @@ const columns = [
     dataIndex: "status",
   },
   {
-    title: "Orderd At",
+    title: "Ordered At",
     dataIndex: "date",
   },
   {
@@ -49,12 +49,14 @@ const ViewOrder = () => {
   const location = useLocation();
   const userId = location.pathname.split("/")[3];
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getOrderByUser(userId));
-  }, []);
+  }, [dispatch, userId]);
+
   const orderState = useSelector((state) => state.auth.orderbyuser);
-  console.log(orderState);
   const data1 = [];
+
   if (orderState && Object.keys(orderState).length !== 0) {
     const { products, paymentintent } = orderState;
     for (let i = 0; i < products.length; i++) {
@@ -69,7 +71,7 @@ const ViewOrder = () => {
         date: new Date(products[i]?.product?.createdAt).toLocaleString(),
         action: (
           <>
-            <Link to="/" className=" fs-3 text-danger">
+            <Link to="/" className="fs-3 text-danger">
               <BiEdit />
             </Link>
             <Link className="ms-3 fs-3 text-danger" to="/">
@@ -80,6 +82,7 @@ const ViewOrder = () => {
       });
     }
   }
+
   return (
     <div>
       <h3 className="mb-4 title">View Order</h3>

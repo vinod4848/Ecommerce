@@ -119,17 +119,16 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrders());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
   const orderState = useSelector((state) => state.auth.orders);
-  console.log(orderState,"orderState");
+  console.log(orderState, "orderState");
   const data2 = [];
   for (let i = 0; i < orderState.length; i++) {
     data2.push({
-      key: i,
+      key: i+1,
       name: orderState[i].orderby.firstName,
       product: orderState[i].products.map((i, j) => {
-        return <p key={j}>{i.product.title}</p>;
+        return <p key={j}>{i.product?.title}</p>;
       }),
       amount: orderState[i].paymentintent.amount,
       date: new Date(orderState[i].createdAt).toLocaleString(),

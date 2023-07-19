@@ -1,10 +1,13 @@
 import { Table } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getblogs } from "../features/blog/blogSlice";
+import { deleteABlog, getBlog } from "../features/blog/blogSlice";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
-import { MdOutlineDelete } from "react-icons/md"
+import { MdOutlineDelete } from "react-icons/md";
+import CustomModel from "../components/CustomModel";
+import { useState } from "react";
+
 const columns = [
   {
     title: "SN",
@@ -23,64 +26,75 @@ const columns = [
     dataIndex: "category",
   },
   {
-    title: "Views",
-    dataIndex: "numViews",
-  },
-  {
-    title: "Likes",
-    dataIndex: "likes",
-  },
-  {
-    title: "Dislikes",
-    dataIndex: "disliked",
-  },
-  {
     title: "Actions",
     dataIndex: "action",
   },
 ];
 
-const Brandlist = () => {
+const Bloglist = () => {
+  const [blogId, setblogId] = useState();
+  const [open, setOpen] = useState(false);
+  const showModal = (e) => {
+    setOpen(true);
+    setblogId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getblogs());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(getBlog());
+  }, [dispatch]);
   const blogState = useSelector((state) => state.blog.blogs);
   const data1 = [];
   for (let i = 0; i < blogState.length; i++) {
     data1.push({
-      key: i,
+      key: i + 1,
       title: blogState[i].title,
       description: blogState[i].description,
       category: blogState[i].category,
-      numViews: blogState[i].numViews,
-      isLiked: blogState[i].isLiked,
-      isDisliked: blogState[i].isDisliked,
-      likes: blogState[i]?.likes?.length ? blogState[i]?.likes[0]?.firstName + " " + blogState[i]?.likes[0].lastName : "",
-      disliked: blogState[i]?.disliked?.length ? blogState[i]?.disliked[0]?.firstName + " " + blogState[i]?.disliked[0].lastName : "",
       action: (
         <>
-          <Link to="/" className="fs-3 text-danger">
+          <Link
+            to={`/admin/blog/${blogState[i]._id}`}
+            className="fs-3 text-danger"
+          >
             <BiEdit />
           </Link>
-          <Link to="/" className="ms-2 fs-3 text-danger">
+          <button
+            className="ms-2 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(blogState[i]._id)}
+          >
             <MdOutlineDelete />
-          </Link>
+          </button>
         </>
-
-      )
-
+      ),
     });
   }
+
+  const deleteblog = (e) => {
+    dispatch(deleteABlog(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getBlog());
+    }, 100);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Blogs</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModel
+        hideModal={hideModal}
+        open={open}
+        PerformAction={() => {
+          deleteblog(blogId);
+        }}
+        title="Are you sure you want to delete this Blog"
+      />
     </div>
   );
 };
 
-export default Brandlist;
+export default Bloglist;

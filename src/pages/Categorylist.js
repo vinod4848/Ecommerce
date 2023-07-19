@@ -37,15 +37,14 @@ const ProductCategoryList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCategory());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
   const productCategoryState = useSelector(
     (state) => state.productCategory.prodcategories
   );
   const data1 = [];
   for (let i = 0; i < productCategoryState.length; i++) {
     data1.push({
-      key: i,
+      key: i +1,
       title: productCategoryState[i].title,
       action: (
         <>

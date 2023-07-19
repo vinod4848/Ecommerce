@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +28,7 @@ const columns = [
     width: 260
   },
   {
-    title: "Created At",
+    title: "Order Date",
     dataIndex: "date",
   },
   {
@@ -47,7 +45,7 @@ const Orders = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrders());
-  }, []);
+  }, [dispatch]);
   const orderState = useSelector((state) => state.auth.orders);
   console.log(orderState, "orderState");
   const data1 = [];
