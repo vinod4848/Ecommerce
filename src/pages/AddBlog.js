@@ -9,7 +9,6 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getblogCats } from "../features/blogCat/blogCatSlice";
-import { useMemo } from 'react';
 import {
   createBlog,
   getABlog,
@@ -86,7 +85,6 @@ const AddBlog = () => {
     formik.values.images = img;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images, img]);
-  
 
   const initialValues = {
     title: blogName || "",
@@ -113,36 +111,6 @@ const AddBlog = () => {
       }, 3000);
     },
   });
-  // const img = [];
-  // imgState.forEach((i) => {
-  //   img.push({
-  //     public_id: i.public_id,
-  //     url: i.url,
-  //   });
-  // });
-  
-
-  // useEffect(() => {
-  //   formik.setValues((prevValues) => ({
-  //     ...prevValues,
-  //     images: img,
-  //   }));
-  // }, [formik, img, imgState]);
-  // const img = useMemo(() => {
-  //   return imgState.map((i) => ({
-  //     public_id: i.public_id,
-  //     url: i.url,
-  //   }));
-  // }, [imgState]);
-  
-  // useEffect(() => {
-  //   formik.setValues((prevValues) => ({
-  //     ...prevValues,
-  //     images: img,
-  //   }));
-  // }, [formik, img]);
-  
-
   return (
     <div>
       <h3 className="mb-4 title">Add Blog</h3>
